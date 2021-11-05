@@ -5,8 +5,8 @@ import { faPlay, faAngleLeft, faAngleRight} from '@fortawesome/free-solid-svg-ic
 export default function Player({ currentSong, isPlaying, setIsPlaying }) {
 
     const [songInfo, setSongInfo] = useState({
-        currentTime: null,
-        duration: null
+        currentTime: 0,
+        duration: 0
     })
     const audioRef = useRef(null);
 
@@ -24,7 +24,7 @@ export default function Player({ currentSong, isPlaying, setIsPlaying }) {
         const current = e.target.currentTime
         const duration = e.target.duration;
         
-        setSongInfo({...songInfo, currentTime: getTime(current), duration: getTime(duration)})
+        setSongInfo({...songInfo, currentTime: current, duration: duration})
     }
 
     const getTime = (time) => {
@@ -33,13 +33,22 @@ export default function Player({ currentSong, isPlaying, setIsPlaying }) {
         )
     }
 
+    const dragHandler = (e) => {
+        audioRef.current.currentTime = e.target.value
+        setSongInfo({ ...songInfo, currentTime: e.target.value })
+    }
 
     return (
         <div className="player">
             <div className="time-control">
-                <p>{songInfo.currentTime}</p>
-                <input type="range" />
-                <p>{songInfo.duration}</p>
+                <p>{getTime(songInfo.currentTime)}</p>
+                <input
+                    min={0}
+                    max={songInfo.duration}
+                    value={songInfo.currentTime}
+                    onChange={dragHandler}
+                    type="range" />
+                <p>{getTime(songInfo.duration)}</p>
             </div>
 
             <div className="play-control">
