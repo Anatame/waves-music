@@ -1,9 +1,14 @@
 import React from 'react'
 
-export default function LibrarySong({song}) {
-    return (
-        <div className="library-song">
+export default function LibrarySong({ song, songs, setCurrentSong, id }) {
+    
+    const songSelectHandler = () => {
+        setCurrentSong(song)
+    }
 
+    return (
+        <div onClick={songSelectHandler} className="library-song">
+ 
             <img alt= {song.name} src={song.cover}></img>
 
             <div className="song-description">
