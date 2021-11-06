@@ -36,8 +36,8 @@ export default function LibrarySong({ song, songs, setCurrentSong, id, audioRef,
             <img alt= {song.name} src={song.cover}></img>
 
             <div className="song-description">
-                <h2>{song.name}</h2>
-                <h3>{song.artist}</h3>
+                <h3>{song.name}</h3>
+                <h4>{song.artist}</h4>
             </div>
 
         </div>
