@@ -1,8 +1,9 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlay, faPause, faAngleLeft, faAngleRight} from '@fortawesome/free-solid-svg-icons'
 
 export default function Player({
+    setSongs,
     setCurrentSong,
     songs,
     currentSong,
@@ -12,6 +13,24 @@ export default function Player({
     setSongInfo,
     songInfo,
     dragHandler }) {
+
+    useEffect(() => {
+        const newSongs = songs.map(song => {
+            if (song.id === currentSong.id) {
+                return {
+                    ...song,
+                    active: true, 
+                }
+            } else {
+                return {
+                    ...song,
+                    active: false, 
+                }
+            }
+        }, [currentSong])
+
+        setSongs(newSongs)
+    })
 
 
 
@@ -59,12 +78,20 @@ export default function Player({
             </div>
 
             <div className="play-control">
-                <FontAwesomeIcon onClick={()=> skipTrackHandler('skip-back')} className="skip-back" icon={faAngleLeft} />
                 <FontAwesomeIcon
+                    size="2x"
+                    onClick={() => skipTrackHandler('skip-back')}
+                    className="skip-back"
+                    icon={faAngleLeft} />
+                <FontAwesomeIcon
+                    size="2x"
                     onClick={playSongHandler}
                     className="play"
                     icon={isPlaying ? faPause : faPlay } />
-                <FontAwesomeIcon onClick={()=> skipTrackHandler('skip-forward')} className="skip-forward" icon={faAngleRight} />
+                <FontAwesomeIcon
+                    size="2x"
+                    onClick={() => skipTrackHandler('skip-forward')}
+                    className="skip-forward" icon={faAngleRight} />
             </div>
         </div>
     )
