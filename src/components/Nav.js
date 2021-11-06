@@ -7,7 +7,7 @@ export default function Nav({libraryStatus, setLibraryStatus}) {
         <nav>
             <h1>Waves</h1>
             <button onClick={()=> setLibraryStatus(!libraryStatus)}>
-                Library
+                Library 
                 <FontAwesomeIcon icon={faMusic}/>
             </button>
         </nav>

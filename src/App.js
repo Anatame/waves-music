@@ -4,7 +4,7 @@ import Player from './components/Player'
 import Song from './components/Song'
 import Library from './components/Library'
 import Nav from './components/Nav'
-import data from './util';
+import data from './data';
 
 function App() {
 
@@ -27,10 +27,7 @@ function App() {
     setSongInfo({...songInfo, currentTime: current, duration: duration})
   }
 
-  const dragHandler = (e) => {
-    audioRef.current.currentTime = e.target.value
-    setSongInfo({ ...songInfo, currentTime: e.target.value })
-}
+
 
 
   return (
@@ -43,7 +40,6 @@ function App() {
         songs={songs}
         songInfo={songInfo}
         setSongInfo={setSongInfo} 
-        dragHandler={dragHandler}
         audioRef={audioRef}
         currentSong={currentSong}
         isPlaying={isPlaying}
