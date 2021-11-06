@@ -13,12 +13,11 @@ export default function Player({
     audioRef,
     setSongInfo,
     songInfo
-    }) {
-
-
-    useEffect(() => {
+}) {
+    
+    const activeLibraryHandler = (nextPrev) => {
         const newSongs = songs.map(song => {
-            if (song.id === currentSong.id) {
+            if (song.id === nextPrev.id) {
                 return {
                     ...song,
                     active: true, 
@@ -32,7 +31,7 @@ export default function Player({
         })
 
         setSongs(newSongs)
-    }, [currentSong]);
+    }
 
     const playSongHandler = () => {
        if(isPlaying){
@@ -48,9 +47,11 @@ export default function Player({
         let currentIndex = songs.findIndex(song => song.id === currentSong.id)
         if (direction === 'skip-forward') {
             await setCurrentSong(songs[(currentIndex + 1) % songs.length])
+            activeLibraryHandler(songs[(currentIndex + 1) % songs.length])
         } else {
             if ((currentIndex - 1) % songs.length === -1) {
                 setCurrentSong(songs[songs.length - 1])
+                activeLibraryHandler(songs[songs.length - 1])
                 return;
             }
             if (isPlaying) audioRef.current.play();
